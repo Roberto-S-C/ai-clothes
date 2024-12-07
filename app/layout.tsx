@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import "./globals.css"
+import "./globals.css";
 
 import Navbar from "../Components/Navbar";
 import Footer from "../Components/Footer";
+import { Suspense } from "react";
+import Loading from "./loading";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -24,6 +26,7 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: Readonly<{
+  cart: React.ReactNode;
   children: React.ReactNode;
 }>) {
   return (
@@ -34,8 +37,8 @@ export default function RootLayout({
         <header>
           <Navbar />
         </header>
-        {children}
-        <footer className="flex bottom-0 w-full">
+        <Suspense fallback={<Loading />}>{children}</Suspense>
+        <footer className="flex w-full">
           <Footer />
         </footer>
       </body>

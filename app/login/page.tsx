@@ -4,6 +4,8 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useCookies } from "react-cookie";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/20/solid";
+import Link from "next/link";
+import { HashLoader } from "react-spinners";
 
 function Login() {
   const [email, setEmail] = useState(null);
@@ -15,6 +17,8 @@ function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [passwordInputType, setPasswordInputType] = useState("password");
 
+  const [isLoading, setLoading] = useState(false);
+
   const router = useRouter();
   const [cookies, setCookie, removeCookie] = useCookies(["token"]);
 
@@ -25,8 +29,11 @@ function Login() {
       return setEmptyFields(true);
     }
 
+    setEmptyFields(false);
+    setLoading(true);
+
     try {
-      fetch("http://localhost:5251/api/account/login", {
+      fetch("http://localhost:5000/api/account/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -36,6 +43,7 @@ function Login() {
         .then((response) => {
           if (response.status >= 300) {
             setIsValid(false);
+            setLoading(false);
             return null;
           }
           return response.json();
@@ -43,7 +51,6 @@ function Login() {
         .then((data) => {
           if (data === null) return;
           setCookie("token", data.token, { path: "/", doNotParse: true });
-          console.log(cookies.token);
           router.push("/");
         });
     } catch (e) {
@@ -52,56 +59,63 @@ function Login() {
   };
 
   return (
-    <div className="flex justify-center h-screen">
-      <div className="w-1/3 h-3/5 mt-20 p-5 rounded border-2 border-yellow-400 bg-yellow-300">
-        <h2 className="w-full text-4xl text-center font-bold">Login</h2>
-        <form className="flex flex-col justify-center items-center w-full mt-10">
-          <div className="w-4/5 py-5">
-            <input
-              type="email"
-              name="email"
-              placeholder="Email"
-              className="border-b-2 border-black bg-yellow-300 w-full font-bold text-lg placeholder:text-black"
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
-          <div className="flex w-4/5 py-5">
-            <input
-              type={passwordInputType}
-              name="password"
-              placeholder="Password"
-              className="border-b-2 border-black bg-yellow-300 w-full font-bold text-lg placeholder:text-black"
-              onChange={(e) => setPassword(e.target.value)}
-            />
+    <div className="flex items-center justify-center h-screen">
+      {isLoading ? (
+        <HashLoader size={50} color={"#fcd34d"} loading={true} />
+      ) : (
+        <div className="flex flex-col items-center sm:w-full md:w-2/3 lg:w-1/3 p-5 rounded border-2 border-yellow-400 bg-yellow-300">
+          <h2 className="w-full text-4xl  text-center font-bold">Login</h2>
+          <form className="flex flex-col justify-center items-center w-full mt-10">
+            <div className="w-4/5 py-5">
+              <input
+                type="email"
+                name="email"
+                placeholder="Email"
+                className="border-b-2 border-black bg-yellow-300 w-full font-bold text-lg placeholder:text-black"
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+            <div className="flex w-4/5 py-5">
+              <input
+                type={passwordInputType}
+                name="password"
+                placeholder="Password"
+                className="border-b-2 border-black bg-yellow-300 w-full font-bold text-lg placeholder:text-black"
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  showPassword
+                    ? setPasswordInputType("password")
+                    : setPasswordInputType("text");
+                  setShowPassword(!showPassword);
+                }}
+                className="flex justify-end bg-yellow-300 border-b-2 border-b-black"
+              >
+                {showPassword && <EyeSlashIcon className="size-6" />}
+                {!showPassword && <EyeIcon className="size-6" />}
+              </button>
+            </div>
+            {emptyFields && (
+              <p className="text-red-600 font-bold">
+                Fill out the empty fields!
+              </p>
+            )}
+            {!isValid && (
+              <p className="text-red-600 font-bold">Invalid credentials!</p>
+            )}
+            <Link href={"/register"}>Don't have an account?</Link>
             <button
-              onClick={(e) => {
-                e.preventDefault();
-                showPassword
-                  ? setPasswordInputType("password")
-                  : setPasswordInputType("text");
-                setShowPassword(!showPassword);
-              }}
-              className="flex justify-end bg-yellow-300 border-b-2 border-b-black"
+              type="submit"
+              className="rounded text-2xl bg-yellow-300 my-20 border-2 border-black text-black font-extrabold hover:bg-black hover:text-yellow-300 p-2 w-1/3"
+              onClick={(e) => loginRequest(e)}
             >
-              {showPassword && <EyeSlashIcon className="size-6" />}
-              {!showPassword && <EyeIcon className="size-6" />}
+              Login
             </button>
-          </div>
-          {emptyFields && (
-            <p className="text-red-600 font-bold">Fill out the empty fields!</p>
-          )}
-          {!isValid && (
-            <p className="text-red-600 font-bold">Invalid credentials!</p>
-          )}
-          <button
-            type="submit"
-            className="rounded text-2xl bg-yellow-300 my-20 border-2 border-black text-black font-extrabold hover:bg-black hover:text-yellow-300 p-2 w-1/3"
-            onClick={(e) => loginRequest(e)}
-          >
-            Login
-          </button>
-        </form>
-      </div>
+          </form>
+        </div>
+      )}
     </div>
   );
 }
