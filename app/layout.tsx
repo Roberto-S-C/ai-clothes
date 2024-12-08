@@ -26,7 +26,6 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: Readonly<{
-  cart: React.ReactNode;
   children: React.ReactNode;
 }>) {
   return (
