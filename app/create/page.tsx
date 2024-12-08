@@ -40,7 +40,7 @@ function Create() {
       setProductWidth(windowWidth / 3);
     }
 
-    fetch("http://localhost:5000/api/piece")
+    fetch("http://0000:5000/api/piece")
       .then((response) => response.json())
       .then((data) => {
         setPieces(data);
@@ -58,7 +58,7 @@ function Create() {
 
     let { designName, prompt } = data;
 
-    fetch("http://localhost:5000/api/design", {
+    fetch("http://0000:5000/api/design", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${cookies.token}`,
@@ -68,7 +68,7 @@ function Create() {
     })
       .then((response) => response.json())
       .then((d) => {
-        setDesignImage(`http://localhost:5000${d.image}`);
+        setDesignImage(`http://0000:5000${d.image}`);
         setDesign(d);
         setLoading(false);
       });
@@ -83,7 +83,7 @@ function Create() {
         return router.push("/login");
       }
 
-      fetch("http://localhost:5000/api/product", {
+      fetch("http://0000:5000/api/product", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${cookies.token}`,
@@ -113,7 +113,7 @@ function Create() {
             <div className="relative">
               {currentPiece && (
                 <Image
-                  src={`http://localhost:5000${currentPiece.image}`}
+                  src={`http://0000:5000${currentPiece.image}`}
                   width={productWidth}
                   height={productWidth}
                   alt={`${currentPiece.color} ${currentPiece.name}`}
@@ -161,7 +161,7 @@ function Create() {
               return (
                 <div key={piece.id} onClick={() => setCurrentPiece(piece)}>
                   <Image
-                    src={`http://localhost:5000${piece.image}`}
+                    src={`http://0000:5000${piece.image}`}
                     width={100}
                     height={100}
                     alt={`${piece.color} ${piece.name}`}

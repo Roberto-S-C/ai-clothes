@@ -25,7 +25,7 @@ function Account() {
   useEffect(() => {
     if (!cookies.token) return router.push("/login");
 
-    fetch("http://localhost:5000/api/product/user", {
+    fetch("http://0000:5000/api/product/user", {
       headers: {
         Authorization: `Bearer ${cookies.token}`,
       },
@@ -33,7 +33,7 @@ function Account() {
       .then((res) => res.json())
       .then((data) => setProducts(data));
 
-    fetch("http://localhost:5000/api/account", {
+    fetch("http://0000:5000/api/account", {
       headers: {
         Authorization: `Bearer ${cookies.token}`,
       },

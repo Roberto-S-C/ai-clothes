@@ -32,7 +32,7 @@ function MyProduct({ products }) {
 
     if (!token) return router.replace("/login");
 
-    fetch(`http://localhost:5000/api/product/${id}`, {
+    fetch(`http://0000:5000/api/product/${id}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -90,13 +90,13 @@ function MyProduct({ products }) {
                 </button>
                 <div className="relative" style={{width: productWidth}}>
                   <Image
-                    src={`http://localhost:5000${product.pieceImage}`}
+                    src={`http://0000:5000${product.pieceImage}`}
                     width={productWidth}
                     height={productWidth}
                     alt={`${product.pieceColor} ${product.pieceFabric} ${product.pieceName}`}
                   />
                   <Image
-                    src={`http://localhost:5000${product.designImage}`}
+                    src={`http://0000:5000${product.designImage}`}
                     width={productWidth / 3}
                     height={productWidth / 3}
                     alt={product.designName}
