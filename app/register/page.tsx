@@ -50,7 +50,7 @@ function Register() {
         })
         .then((data) => {
           if (data === null) return;
-          setCookie("token", data.token, { path: "/", doNotParse: true });
+          setCookie("token", data.token, { path: "/" });
           router.push("/");
         });
     } catch (error) {
