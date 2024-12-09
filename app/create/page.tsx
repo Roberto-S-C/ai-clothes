@@ -9,11 +9,11 @@ import { useRouter } from "next/navigation";
 import { HashLoader } from "react-spinners";
 import { useForm } from "react-hook-form";
 
-function Create() {
+async function Create() {
   const [design, setDesign] = useState(null);
   const [designImage, setDesignImage] = useState("/image.png");
 
-  const [pieces, setPieces] = useState([]);
+  // const [pieces, setPieces] = useState([]);
   const [currentPiece, setCurrentPiece] = useState(null);
 
   const [cookies, setCookie] = useCookies(["token"]);
@@ -30,6 +30,12 @@ function Create() {
     handleSubmit,
   } = useForm();
 
+  const data = await fetch("http://localhost:5000/api/product", {
+    cache: "no-store",
+  });
+  let pieces = await data.json();
+  console.log(pieces);
+
   useEffect(() => {
     let windowWidth = window.innerWidth;
     if (windowWidth <= 700) {
@@ -40,18 +46,18 @@ function Create() {
       setProductWidth(windowWidth / 3);
     }
 
-    fetch("http://localhost:5000/api/piece", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setPieces(data);
-        setCurrentPiece(data[0]);
-        setLoading(false);
-      });
+    // fetch("http://localhost:5000/api/piece", {
+    //   method: "GET",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    // })
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     setPieces(data);
+    //     setCurrentPiece(data[0]);
+    //     setLoading(false);
+    //   });
   }, []);
 
   const createDesign = (data) => {
