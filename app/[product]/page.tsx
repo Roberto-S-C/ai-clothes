@@ -20,7 +20,7 @@ function ProductPage() {
     windowWidth <= 1024
       ? setProductWidth((windowWidth * 4) / 5)
       : setProductWidth(windowWidth / 3);
-    fetch(`http://localhost:5000/api/product/${params.product}`, {
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/product/${params.product}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

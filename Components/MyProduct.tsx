@@ -32,7 +32,7 @@ function MyProduct({ products }) {
 
     if (!token) return router.replace("/login");
 
-    fetch(`http://localhost:5000/api/product/${id}`, {
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/product/${id}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -90,13 +90,13 @@ function MyProduct({ products }) {
                 </button>
                 <div className="relative" style={{width: productWidth}}>
                   <Image
-                    src={`http://localhost:5000${product.pieceImage}`}
+                    src={`${process.env.NEXT_PUBLIC_API_URL}${product.pieceImage}`}
                     width={productWidth}
                     height={productWidth}
                     alt={`${product.pieceColor} ${product.pieceFabric} ${product.pieceName}`}
                   />
                   <Image
-                    src={`http://localhost:5000${product.designImage}`}
+                    src={`${process.env.NEXT_PUBLIC_API_URL}${product.designImage}`}
                     width={productWidth / 3}
                     height={productWidth / 3}
                     alt={product.designName}

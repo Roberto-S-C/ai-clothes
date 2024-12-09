@@ -33,7 +33,7 @@ function Register() {
     setLoading(true);
 
     try {
-      fetch("http://localhost:5000/api/account/register", {
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/account/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

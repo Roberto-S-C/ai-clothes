@@ -4,7 +4,7 @@ import Product from "../Components/Product";
 import Link from "next/link";
 
 export default async function Home() {
-  const data = await fetch("http://localhost:5000/api/product", {
+  const data = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/product`, {
     cache: "no-store",
   });
   let products = await data.json();

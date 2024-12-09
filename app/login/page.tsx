@@ -33,7 +33,7 @@ function Login() {
     setLoading(true);
 
     try {
-      fetch("http://localhost:5000/api/account/login", {
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/account/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

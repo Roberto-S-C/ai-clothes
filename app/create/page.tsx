@@ -13,7 +13,7 @@ async function Create() {
   const [design, setDesign] = useState(null);
   const [designImage, setDesignImage] = useState("/image.png");
 
-  // const [pieces, setPieces] = useState([]);
+  const [pieces, setPieces] = useState([]);
   const [currentPiece, setCurrentPiece] = useState(null);
 
   const [cookies, setCookie] = useCookies(["token"]);
@@ -30,12 +30,6 @@ async function Create() {
     handleSubmit,
   } = useForm();
 
-  const data = await fetch("http://localhost:5000/api/product", {
-    cache: "no-store",
-  });
-  let pieces = await data.json();
-  console.log(pieces);
-
   useEffect(() => {
     let windowWidth = window.innerWidth;
     if (windowWidth <= 700) {
@@ -46,18 +40,18 @@ async function Create() {
       setProductWidth(windowWidth / 3);
     }
 
-    // fetch("http://localhost:5000/api/piece", {
-    //   method: "GET",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    // })
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     setPieces(data);
-    //     setCurrentPiece(data[0]);
-    //     setLoading(false);
-    //   });
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/piece`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setPieces(data);
+        setCurrentPiece(data[0]);
+        setLoading(false);
+      });
   }, []);
 
   const createDesign = (data) => {
@@ -69,7 +63,7 @@ async function Create() {
 
     let { designName, prompt } = data;
 
-    fetch("http://localhost:5000/api/design", {
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/design`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${cookies.token}`,
@@ -79,7 +73,7 @@ async function Create() {
     })
       .then((response) => response.json())
       .then((d) => {
-        setDesignImage(`http://localhost:5000${d.image}`);
+        setDesignImage(`${process.env.NEXT_PUBLIC_API_URL}${d.image}`);
         setDesign(d);
         setLoading(false);
       });
@@ -94,7 +88,7 @@ async function Create() {
         return router.push("/login");
       }
 
-      fetch("http://localhost:5000/api/product", {
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/product`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${cookies.token}`,
@@ -124,7 +118,7 @@ async function Create() {
             <div className="relative">
               {currentPiece && (
                 <Image
-                  src={`http://localhost:5000${currentPiece.image}`}
+                  src={`${process.env.NEXT_PUBLIC_API_URL}${currentPiece.image}`}
                   width={productWidth}
                   height={productWidth}
                   alt={`${currentPiece.color} ${currentPiece.name}`}
@@ -172,7 +166,7 @@ async function Create() {
               return (
                 <div key={piece.id} onClick={() => setCurrentPiece(piece)}>
                   <Image
-                    src={`http://localhost:5000${piece.image}`}
+                    src={`${process.env.NEXT_PUBLIC_API_URL}${piece.image}`}
                     width={100}
                     height={100}
                     alt={`${piece.color} ${piece.name}`}
