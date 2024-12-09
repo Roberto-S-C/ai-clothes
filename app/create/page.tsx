@@ -40,7 +40,12 @@ function Create() {
       setProductWidth(windowWidth / 3);
     }
 
-    fetch("http://localhost:5000/api/piece")
+    fetch("http://localhost:5000/api/piece", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
       .then((response) => response.json())
       .then((data) => {
         setPieces(data);
