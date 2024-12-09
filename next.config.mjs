@@ -1,10 +1,15 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  async rewrites() {
+  async headers() {
     return [
       {
-        source: "/api/:path*",
-        destination: "http://localhost:5000/api/:path*", // Proxy to backend
+        source: "/(.*)",
+        headers: [
+          {
+            key: "Referrer-Policy",
+            value: "no-referrer-when-downgrade",
+          },
+        ],
       },
     ];
   },
