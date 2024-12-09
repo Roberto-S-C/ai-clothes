@@ -31,6 +31,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <title>Ai Clothes</title>
         <link
           rel="apple-touch-icon"
           sizes="180x180"
