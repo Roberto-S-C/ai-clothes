@@ -20,7 +20,7 @@ function ProductPage() {
     windowWidth <= 1024
       ? setProductWidth(windowWidth * 4/5)
       : setProductWidth(windowWidth / 3);
-    fetch(`http://0000:5000/api/product/${params.product}`)
+    fetch(`http://localhost:5000/api/product/${params.product}`)
       .then((response) => response.json())
       .then((data) => {
         setProduct(data);

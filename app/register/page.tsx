@@ -33,7 +33,7 @@ function Register() {
     setLoading(true);
 
     try {
-      fetch("http://0000:5000/api/account/register", {
+      fetch("http://localhost:5000/api/account/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

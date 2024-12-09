@@ -88,13 +88,13 @@ function ShoppingCart() {
                   </button>
                   <div className="relative" style={{width: productWidth}}>
                     <Image
-                      src={`http://0000:5000${item.pieceImage}`}
+                      src={`http://localhost:5000${item.pieceImage}`}
                       alt={`${item.pieceColor} ${item.pieceFabric} ${item.pieceName}`}
                       width={productWidth}
                       height={productWidth}
                     />
                     <Image
-                      src={`http://0000:5000${item.designImage}`}
+                      src={`http://localhost:5000${item.designImage}`}
                       alt={item.designName}
                       width={productWidth / 3}
                       height={productWidth / 3}
