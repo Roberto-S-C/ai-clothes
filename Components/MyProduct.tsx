@@ -5,7 +5,10 @@ import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { HashLoader } from "react-spinners";
 
-function MyProduct({ products }) {
+import { ToastContainer, toast } from "react-custom-alert";
+import "react-custom-alert/dist/index.css";
+
+function MyProduct() {
   const [cookies, setCookie] = useCookies(["token"]);
 
   const router = useRouter();
@@ -13,6 +16,10 @@ function MyProduct({ products }) {
   const [loading, setLoading] = useState(false);
 
   const [productWidth, setProductWidth] = useState(0);
+
+  const [products, setProducts] = useState(null);
+
+  const alertSuccess = () => toast.success("Item deleted successfully!");
 
   useEffect(() => {
     let windowWidth = window.innerWidth;
@@ -23,6 +30,14 @@ function MyProduct({ products }) {
     } else {
       setProductWidth(windowWidth / 8);
     }
+
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/product/user`, {
+      headers: {
+        Authorization: `Bearer ${cookies.token}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => setProducts(data));
   }, []);
 
   const deleteProduct = (id) => {
@@ -38,7 +53,8 @@ function MyProduct({ products }) {
         Authorization: `Bearer ${token}`,
       },
     }).then((res) => {
-      router.refresh();
+      setProducts(products.filter(p => p.id !== id));
+      alertSuccess();
       setLoading(false);
     });
   };
@@ -52,7 +68,8 @@ function MyProduct({ products }) {
 
   return (
     <div className="mx-3 lg:w-3/5">
-      {products.length < 1 && (
+      <ToastContainer floatingTime={3000} />
+      {products && products.length < 1 && (
         <div className="flex flex-col justify-center items-center h-screen">
           <p className="sm:text-md lg:text-xl font-bold">
             You haven't created any products yet
@@ -63,7 +80,7 @@ function MyProduct({ products }) {
           </button>
         </div>
       )}
-      {products.length >= 1 && (
+      {products && products.length >= 1 && (
         <div>
           {products.map((product) => {
             const formattedDate = new Date(product.designDate).toLocaleString(
@@ -88,7 +105,7 @@ function MyProduct({ products }) {
                 >
                   <TrashIcon className="size-8" />
                 </button>
-                <div className="relative" style={{width: productWidth}}>
+                <div className="relative" style={{ width: productWidth }}>
                   <Image
                     src={`${process.env.NEXT_PUBLIC_API_URL}${product.pieceImage}`}
                     width={productWidth}

@@ -196,21 +196,20 @@ async function Create() {
               )}
 
               <div className="flex justify-around mt-3">
-                <div className="flex items-center mx-2 bg-yellow-300 border-2 border-black rounded hover:bg-black hover:text-yellow-300 cursor-pointer p-3">
-                  <input
+                <div className="flex items-center mx-2 bg-yellow-300 border-2 border-black rounded hover:bg-black hover:text-yellow-300 cursor-pointer">
+                  <button
                     type="submit"
-                    className="text-center text-xl font-bold cursor-pointer"
-                    value={"Generate"}
-                  />
-                  <CpuChipIcon className="size-6 text-sm mx-3" />
+                    className="text-center text-2xl font-bold cursor-pointer p-3"
+                  >
+                    Generate &#x1f916;
+                  </button>
                 </div>
                 <div className="mx-2">
                   <div
-                    className="flex bg-yellow-300 text-center text-xl border-2 border-black  font-bold rounded hover:bg-black hover:text-yellow-300 cursor-pointer p-3"
+                    className="flex bg-yellow-300 text-center text-2xl border-2 border-black  font-bold rounded hover:bg-black hover:text-yellow-300 cursor-pointer p-3"
                     onClick={() => createProduct()}
                   >
-                    Next
-                    <ChevronRightIcon className="size-6 text-sm mx-3" />
+                    Next &#x1f455; 
                   </div>
                 </div>
               </div>

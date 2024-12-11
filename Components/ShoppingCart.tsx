@@ -54,7 +54,7 @@ function ShoppingCart() {
   };
 
   return (
-    <div className="flex m-auto lg:w-4/5">
+    <div className="flex  lg:justify-self-center justify-center lg:w-11/12">
       {cart.length === 0 ? (
         <div className="flex flex-col justify-center items-center w-full">
           <p className="m-2 text-2xl font-bold">Your cart is empty...</p>
@@ -67,7 +67,7 @@ function ShoppingCart() {
           </button>
         </div>
       ) : (
-        <div className="lg:flex flex-3 w-full">
+        <div className="flex flex-col items-center lg:flex-row lg:items-start lg:justify-center flex-3">
           <div className="sm:w-full lg:w-3/5 mt-6">
             {cart.map((item, index) => (
               <div
@@ -141,7 +141,7 @@ function ShoppingCart() {
               </div>
             ))}
           </div>
-          <div className="flex-1 w-full lg:h-1/3 mt-9 border-2 border-black rounded-md p-5">
+          <div className="flex-1 w-11/12 mt-9 border-2 border-black rounded-md p-5">
             <div className="flex flex-wrap items-center h-full">
               <p className="w-full font-bold text-2xl">Order Summary</p>
               {ammountItems > 1 ? (

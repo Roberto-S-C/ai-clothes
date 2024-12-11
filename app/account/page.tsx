@@ -14,8 +14,6 @@ function Account() {
 
   const [loading, setLoading] = useState(true);
 
-  const [products, setProducts] = useState([]);
-
   const [user, setUser] = useState(null);
 
   const [cookies, setCookie] = useCookies(["token"]);
@@ -24,14 +22,6 @@ function Account() {
 
   useEffect(() => {
     if (!cookies.token) return router.push("/login");
-
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/product/user`, {
-      headers: {
-        Authorization: `Bearer ${cookies.token}`,
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => setProducts(data));
 
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/account`, {
       headers: {
@@ -71,7 +61,7 @@ function Account() {
         </div>
         <div className="flex justify-center m-5">
           {selectedMenuItem == 0 && user && <MyAccount user={user} />}
-          {selectedMenuItem == 1 && <MyProduct products={products} />}
+          {selectedMenuItem == 1 && <MyProduct />}
           {selectedMenuItem == 2 && <MyPurchase />}
         </div>
       </div>

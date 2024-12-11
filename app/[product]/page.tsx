@@ -3,7 +3,9 @@
 import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import Product from "../../Components/Product";
-import { ShoppingCartIcon } from "@heroicons/react/20/solid";
+
+import { ToastContainer, toast } from "react-custom-alert";
+import "react-custom-alert/dist/index.css";
 
 function ProductPage() {
   const [product, setProduct] = useState(null);
@@ -14,6 +16,8 @@ function ProductPage() {
   const [selectedSize, setSelectedSize] = useState(sizes[0]);
 
   const params = useParams();
+
+  const alertSuccess = () => toast.success("Item added to cart!");
 
   useEffect(() => {
     let windowWidth = window.innerWidth;
@@ -34,6 +38,7 @@ function ProductPage() {
 
   return (
     <div className="flex items-center justify-center sm:h-screen lg:h-auto">
+      <ToastContainer floatingTime={3000} />
       <div className={`w-${productWidth}`}>
         {product && (
           <div className="flex flex-wrap">
@@ -85,6 +90,7 @@ function ProductPage() {
               <button
                 onClick={() => {
                   let cart = JSON.parse(localStorage.getItem("cart"));
+                  alertSuccess();
                   if (cart) {
                     let item = {
                       productId: product.id,
@@ -131,9 +137,9 @@ function ProductPage() {
                     localStorage.setItem("cart", JSON.stringify(newCart));
                   }
                 }}
-                className="flex bg-yellow-300 font-bold p-3 rounded-md hover:bg-black hover:text-yellow-300"
+                className="flex bg-yellow-300 font-bold p-3 rounded-md hover:bg-black hover:text-yellow-300 text-2xl"
               >
-                Add to Cart <ShoppingCartIcon className="size-6 text-md ml-2" />
+                Add to Cart &#x1f6d2;
               </button>
             </div>
           </div>
