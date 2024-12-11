@@ -75,7 +75,7 @@ function MyProduct() {
             You haven't created any products yet
           </p>
           <FaceFrownIcon className="size-12 text-yellow-300 mt-3" />
-          <button className="bg-yellow-300 font-bold p-2 mt-3 rounded-md hover:bg-black hover:text-yellow-300">
+          <button onClick={() => router.push("/create")} className="bg-yellow-300 font-bold p-2 mt-3 rounded-md hover:bg-black hover:text-yellow-300">
             Create Products
           </button>
         </div>

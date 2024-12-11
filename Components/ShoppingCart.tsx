@@ -154,7 +154,7 @@ function ShoppingCart() {
                 Subtotal {(subtotal + shipping).toFixed(2)}$
               </p>
               <div className="flex justify-center w-full">
-                <button className="bg-yellow-300 w-1/3 p-3 mt-5 lg:m-auto font-bold text-2xl rounded-md hover:text-yellow-300 hover:bg-black">
+                <button onClick={() => router.push("/checkout")} className="bg-yellow-300 w-1/3 p-3 mt-5 lg:m-auto font-bold text-2xl rounded-md hover:text-yellow-300 hover:bg-black">
                   Pay
                 </button>
               </div>
