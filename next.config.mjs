@@ -19,14 +19,14 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: "http",
-        hostname: "24.199.69.20",
+        protocol: "https",
+        hostname: "aiclothes.shop",
         port: "5000",
         pathname: "/images/**",
       },
       {
-        protocol: "http",
-        hostname: "24.199.69.20",
+        protocol: "https",
+        hostname: "aiclothes.shop",
         port: "5000",
         pathname: "/piece/**",
       },
