@@ -57,9 +57,6 @@ export default function RootLayout({
           <Navbar />
         </header>
         <Suspense fallback={<Loading />}>{children}</Suspense>
-        <footer className="flex w-full">
-          <Footer />
-        </footer>
       </body>
     </html>
   );
